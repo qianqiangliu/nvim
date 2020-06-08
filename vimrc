@@ -10,10 +10,11 @@ set tags=./.tags;,.tags
 
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 call plug#end()
 
@@ -37,6 +38,9 @@ let g:tagbar_sort=0
 let g:tagbar_indent=0
 let g:tagbar_autofocus=1
 nmap <F8> : TagbarToggle<CR>
+
+" airline
+let g:airline_powerline_fonts = 1
 
 nmap <F5> : FixWhitespace<CR>
 nmap <F6> : !ctags -R -f .tags<CR>
