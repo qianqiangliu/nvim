@@ -16,6 +16,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 " nerdtree
@@ -41,6 +42,12 @@ nmap <F8> : TagbarToggle<CR>
 
 " airline
 let g:airline_powerline_fonts = 1
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 nmap <F5> : FixWhitespace<CR>
 nmap <F6> : !ctags -R -f .tags<CR>
