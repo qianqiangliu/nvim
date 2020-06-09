@@ -7,6 +7,7 @@ set shiftwidth=4
 set smartindent
 set mouse=v
 set tags=./.tags;,.tags
+set encoding=utf-8
 
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
