@@ -19,6 +19,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'vim-syntastic/syntastic'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " nerdtree
@@ -51,6 +53,7 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
+nmap <F3> : Files<CR>
 nmap <F4> : SyntasticCheck<CR>
 nmap <F5> : FixWhitespace<CR>
 nmap <F6> : !ctags -R -f .tags<CR>
