@@ -21,6 +21,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'vimlab/split-term.vim'
 call plug#end()
 
 " nerdtree
