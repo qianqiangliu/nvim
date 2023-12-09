@@ -7,6 +7,8 @@ set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
+set foldmethod=syntax
+set nofoldenable
 
 " jump to last position
 autocmd BufReadPost *
