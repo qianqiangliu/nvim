@@ -17,6 +17,9 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+command -nargs=+ -complete=file -bar
+  \ Grep silent! grep! <args> | cwindow | redraw!
+
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
 " expand '%%' to current path
