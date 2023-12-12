@@ -34,7 +34,18 @@ function! s:on_exit(job, status, event)
   call delete(s:tmpfile)
 endfunction
 
+function! s:echoerr(msg)
+  echohl ErrorMsg
+  echomsg a:msg
+  echohl None
+endfunction
+
 function! s:fzf_open(path)
+  if !executable('fzf')
+    call s:echoerr("You need to install 'fzf' first")
+    return
+  endif
+
   keepalt bo 9 new
   setlocal nonumber
   setlocal norelativenumber
