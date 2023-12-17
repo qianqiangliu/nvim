@@ -7,7 +7,7 @@ if exists('g:loaded_fzf') || &cp
 endif
 let g:loaded_fzf = 1
 
-function! s:find_root()
+function! s:find_root() abort
   let result = system('git rev-parse --show-toplevel')
   if v:shell_error == 0
     return substitute(result, '\n*$', '', 'g')
@@ -16,31 +16,45 @@ function! s:find_root()
   return "."
 endfunction
 
-let s:tmpfile = tempname()
-
-function! s:on_exit(job, status, event)
-  silent! bd
-
-  let lines = readfile(s:tmpfile, '')
-
-  let full_path = s:root.'/'.get(lines, 0)
-  if filereadable(full_path)
+function! s:edit(path) abort
+  if filereadable(a:path)
     while &buftype != ""
       execute 'wincmd w'
     endwhile
-    execute 'edit '.full_path
+    execute 'edit '.a:path
   endif
-
-  call delete(s:tmpfile)
 endfunction
 
-function! s:echoerr(msg)
+if has('nvim')
+  let s:tmpfile = tempname()
+
+  function! OpenFile(job, status, event) abort
+    silent! bd
+
+    let lines = readfile(s:tmpfile, '')
+    let full_path = s:root.'/'.get(lines, 0)
+    call s:edit(full_path)
+    call delete(s:tmpfile)
+  endfunction
+else
+  function! OpenFile(...) abort
+    let root = getcwd()
+    let path = term_getline(b:term_buf, 1)
+
+    silent! close
+
+    let full_path = root.'/'.path
+    call s:edit(full_path)
+  endfunction
+endif
+
+function! s:echoerr(msg) abort
   echohl ErrorMsg
   echomsg a:msg
   echohl None
 endfunction
 
-function! s:fzf_open(path)
+function! s:fzf_open(path) abort
   if !executable('fzf')
     call s:echoerr("You need to install 'fzf' first")
     return
@@ -55,8 +69,13 @@ function! s:fzf_open(path)
     execute 'lcd '.s:root
   endif
 
-  call termopen('fzf > '.s:tmpfile, { 'on_exit': 's:on_exit' })
-  startinsert
+  if has('nvim')
+    call termopen('fzf > '.s:tmpfile, {'on_exit':'OpenFile'})
+    startinsert
+  else
+    let options = {'term_name':'FZF','curwin':1,'exit_cb':'OpenFile'}
+    let b:term_buf = term_start('fzf', options)
+  endif
 endfunction
 
 command! -nargs=? -complete=file Fzf :call s:fzf_open(<q-args>)
