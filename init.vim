@@ -6,10 +6,13 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set clipboard=unnamed
-set tags=./.tags;,.tags
+set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
+set incsearch
+set mouse=
+set wildmenu
 syntax on
 
 " jump to last position
