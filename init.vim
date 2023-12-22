@@ -13,7 +13,12 @@ set grepformat=%f:%l:%c:%m
 set incsearch
 set mouse=
 set wildmenu
+set termguicolors
+set cursorline
+set background=dark
 syntax on
+
+colorscheme gruvbox
 
 " jump to last position
 autocmd BufReadPost *
