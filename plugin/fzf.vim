@@ -28,8 +28,8 @@ endfunction
 if has('nvim')
   let s:tmpfile = tempname()
 
-  function! OpenFile(job, status, event) abort
-    silent! bd
+  function! s:on_exit(job, status, event) abort
+    silent! close
 
     let lines = readfile(s:tmpfile, '')
     let full_path = s:root.'/'.get(lines, 0)
@@ -37,12 +37,11 @@ if has('nvim')
     call delete(s:tmpfile)
   endfunction
 else
-  function! OpenFile(...) abort
-    let root = getcwd()
-    let path = term_getline(b:term_buf, 1)
-
+  function! s:on_exit(...) abort
     silent! close
 
+    let root = getcwd()
+    let path = term_getline(s:term_buf, 1)
     let full_path = root.'/'.path
     call s:edit(full_path)
   endfunction
@@ -60,21 +59,22 @@ function! s:fzf_open(path) abort
     return
   endif
 
-  keepalt bo 9 new
-  setlocal nonumber
-  setlocal norelativenumber
-
   let s:root = a:path != '' ? a:path : s:find_root()
   if s:root != '.'
     execute 'lcd '.s:root
   endif
 
   if has('nvim')
-    call termopen('fzf > '.s:tmpfile, {'on_exit':'OpenFile'})
+    keepalt bo 9 new
+    setlocal nonumber
+    setlocal norelativenumber
+
+    call termopen('fzf > '.s:tmpfile, {'on_exit':'s:on_exit'})
     startinsert
   else
-    let options = {'term_name':'FZF','curwin':1,'exit_cb':'OpenFile'}
-    let b:term_buf = term_start('fzf', options)
+    hi link Terminal Search
+    let s:term_buf = term_start('fzf --reverse', #{hidden: 1, term_finish: 'close', exit_cb: 's:on_exit'})
+    call popup_create(s:term_buf, #{pos: 'center', border: [], minwidth: 80, minheight: 24})
   endif
 endfunction
 
