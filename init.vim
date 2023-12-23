@@ -13,6 +13,7 @@ set grepformat=%f:%l:%c:%m
 set incsearch
 set mouse=
 set wildmenu
+set termguicolors
 set cursorline
 set background=dark
 syntax on
