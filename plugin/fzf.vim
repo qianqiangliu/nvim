@@ -28,7 +28,7 @@ endfunction
 let s:tmpfile = tempname()
 
 function! s:on_exit(job, status, event) abort
-  silent! bd
+  silent! close
 
   let lines = readfile(s:tmpfile, '')
   let full_path = s:root.'/'.get(lines, 0)
