@@ -25,27 +25,16 @@ function! s:edit(path) abort
   endif
 endfunction
 
-if has('nvim')
-  let s:tmpfile = tempname()
+let s:tmpfile = tempname()
 
-  function! s:on_exit(job, status, event) abort
-    silent! close
+function! s:on_exit(job, status, event) abort
+  silent! bd
 
-    let lines = readfile(s:tmpfile, '')
-    let full_path = s:root.'/'.get(lines, 0)
-    call s:edit(full_path)
-    call delete(s:tmpfile)
-  endfunction
-else
-  function! s:on_exit(...) abort
-    silent! close
-
-    let root = getcwd()
-    let path = term_getline(s:term_buf, 1)
-    let full_path = root.'/'.path
-    call s:edit(full_path)
-  endfunction
-endif
+  let lines = readfile(s:tmpfile, '')
+  let full_path = s:root.'/'.get(lines, 0)
+  call s:edit(full_path)
+  call delete(s:tmpfile)
+endfunction
 
 function! s:echoerr(msg) abort
   echohl ErrorMsg
@@ -64,42 +53,25 @@ function! s:fzf_open(path) abort
     execute 'lcd '.s:root
   endif
 
-  if has('nvim')
-    let width = 80
-    let height = 24
-    let buf = nvim_create_buf(v:false, v:true)
-    let ui = nvim_list_uis()[0]
+  let width = 80
+  let height = 24
+  let buf = nvim_create_buf(v:false, v:true)
+  let ui = nvim_list_uis()[0]
 
-    let opts = {
-      \ 'relative': 'editor',
-      \ 'width': width,
-      \ 'height': height,
-      \ 'col': (ui.width / 2) - (width / 2),
-      \ 'row': (ui.height / 2) - (height / 2),
-      \ 'anchor': 'NW',
-      \ 'border': 'rounded',
-      \ 'style': 'minimal',
-      \ }
-    let win = nvim_open_win(buf, 1, opts)
-    call termopen('fzf --reverse > '.s:tmpfile, {'on_exit':'s:on_exit'})
-    startinsert
-  else
-    hi link Terminal Search
-    let s:term_buf = term_start('fzf --reverse', #{hidden: 1, term_finish: 'close', exit_cb: 's:on_exit'})
-    let options = {
-      \ 'pos': 'center',
-      \ 'minwidth': 80,
-      \ 'minheight': 24,
-      \ 'border': [1, 1, 1, 1],
-      \ 'borderchars': ['─', '│', '─', '│', '╭', '╮', '╯', '╰'],
-      \ 'highlight': 'Fzf',
-      \ 'padding': [0, 1, 0, 1],
-      \ }
-    call popup_create(s:term_buf, options)
-  endif
+  let options = {
+    \ 'relative': 'editor',
+    \ 'width': width,
+    \ 'height': height,
+    \ 'col': (ui.width / 2) - (width / 2),
+    \ 'row': (ui.height / 2) - (height / 2),
+    \ 'anchor': 'NW',
+    \ 'border': 'rounded',
+    \ 'style': 'minimal',
+    \ }
+  let win = nvim_open_win(buf, 1, options)
+  call termopen('fzf --reverse > '.s:tmpfile, { 'on_exit': 's:on_exit' })
+  startinsert
 endfunction
-
-"hi Fzf guibg=black
 
 command! -nargs=? -complete=file Fzf :call s:fzf_open(<q-args>)
 

@@ -10,13 +10,9 @@ set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
-set incsearch
-set autoindent
 set mouse=
-set wildmenu
 set termguicolors
 set cursorline
-set background=dark
 syntax on
 
 colorscheme gruvbox
