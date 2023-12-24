@@ -77,6 +77,7 @@ function! s:fzf_open(path) abort
       \ 'col': (ui.width / 2) - (width / 2),
       \ 'row': (ui.height / 2) - (height / 2),
       \ 'anchor': 'NW',
+      \ 'border': 'rounded',
       \ 'style': 'minimal',
       \ }
     let win = nvim_open_win(buf, 1, opts)
