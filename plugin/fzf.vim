@@ -74,9 +74,20 @@ function! s:fzf_open(path) abort
   else
     hi link Terminal Search
     let s:term_buf = term_start('fzf --reverse', #{hidden: 1, term_finish: 'close', exit_cb: 's:on_exit'})
-    call popup_create(s:term_buf, #{pos: 'center', border: [], minwidth: 80, minheight: 24})
+    let options = {
+      \ 'pos': 'center',
+      \ 'minwidth': 80,
+      \ 'minheight': 24,
+      \ 'border': [1, 1, 1, 1],
+      \ 'borderchars': ['─', '│', '─', '│', '╭', '╮', '╯', '╰'],
+      \ 'highlight': 'Fzf',
+      \ 'padding': [0, 1, 0, 1],
+      \ }
+    call popup_create(s:term_buf, options)
   endif
 endfunction
+
+"hi Fzf guibg=black
 
 command! -nargs=? -complete=file Fzf :call s:fzf_open(<q-args>)
 
