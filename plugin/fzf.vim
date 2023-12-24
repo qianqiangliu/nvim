@@ -65,11 +65,22 @@ function! s:fzf_open(path) abort
   endif
 
   if has('nvim')
-    keepalt bo 9 new
-    setlocal nonumber
-    setlocal norelativenumber
+    let width = 80
+    let height = 24
+    let buf = nvim_create_buf(v:false, v:true)
+    let ui = nvim_list_uis()[0]
 
-    call termopen('fzf > '.s:tmpfile, {'on_exit':'s:on_exit'})
+    let opts = {
+      \ 'relative': 'editor',
+      \ 'width': width,
+      \ 'height': height,
+      \ 'col': (ui.width / 2) - (width / 2),
+      \ 'row': (ui.height / 2) - (height / 2),
+      \ 'anchor': 'NW',
+      \ 'style': 'minimal',
+      \ }
+    let win = nvim_open_win(buf, 1, opts)
+    call termopen('fzf --reverse > '.s:tmpfile, {'on_exit':'s:on_exit'})
     startinsert
   else
     hi link Terminal Search
