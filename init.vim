@@ -13,7 +13,6 @@ set grepformat=%f:%l:%c:%m
 set mouse=
 set termguicolors
 set cursorline
-syntax on
 
 colorscheme gruvbox
 
