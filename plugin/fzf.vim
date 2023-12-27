@@ -53,17 +53,15 @@ function! s:fzf_open(path) abort
     execute 'lcd '.s:root
   endif
 
-  let width = 80
-  let height = 24
   let buf = nvim_create_buf(v:false, v:true)
   let ui = nvim_list_uis()[0]
 
   let options = {
     \ 'relative': 'editor',
-    \ 'width': width,
-    \ 'height': height,
-    \ 'col': (ui.width / 2) - (width / 2),
-    \ 'row': (ui.height / 2) - (height / 2),
+    \ 'width': (ui.width / 2),
+    \ 'height': (ui.height / 2),
+    \ 'col': (ui.width / 4),
+    \ 'row': (ui.height / 4),
     \ 'anchor': 'NW',
     \ 'border': 'rounded',
     \ 'style': 'minimal',
