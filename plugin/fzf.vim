@@ -69,7 +69,7 @@ function! s:fzf_open(path) abort
     \ 'style': 'minimal',
     \ }
   let win = nvim_open_win(buf, 1, options)
-  call termopen('fzf --reverse > '.s:tmpfile, { 'on_exit': 's:on_exit' })
+  call termopen('fzf --preview "cat {}" --reverse > '.s:tmpfile, { 'on_exit': 's:on_exit' })
   startinsert
 endfunction
 
