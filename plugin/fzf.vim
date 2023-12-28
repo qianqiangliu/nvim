@@ -31,8 +31,8 @@ function! s:on_exit(job, status, event) abort
   silent! close
 
   let lines = readfile(s:tmpfile, '')
-  let full_path = s:root.'/'.get(lines, 0)
-  call s:edit(full_path)
+  let path = get(lines, 0)
+  call s:edit(path)
   call delete(s:tmpfile)
 endfunction
 
