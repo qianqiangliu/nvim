@@ -58,10 +58,10 @@ function! s:fzf_open(path) abort
 
   let options = {
     \ 'relative': 'editor',
-    \ 'width': (ui.width / 2),
-    \ 'height': (ui.height / 2),
-    \ 'col': (ui.width / 4),
-    \ 'row': (ui.height / 4),
+    \ 'width': (ui.width * 3 / 5),
+    \ 'height': (ui.height * 3 / 5),
+    \ 'col': (ui.width / 5),
+    \ 'row': (ui.height / 5),
     \ 'anchor': 'NW',
     \ 'border': 'rounded',
     \ 'style': 'minimal',
