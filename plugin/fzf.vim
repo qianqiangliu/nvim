@@ -48,9 +48,15 @@ function! s:fzf_open(path) abort
     return
   endif
 
-  let s:root = a:path != '' ? a:path : s:find_root()
-  if s:root != '.'
-    execute 'lcd '.s:root
+  if !executable('bat')
+    let preview = 'cat {}'
+  else
+    let preview = 'bat --color=always {}'
+  endif
+
+  let root = a:path != '' ? a:path : s:find_root()
+  if root != '.'
+    execute 'lcd '.root
   endif
 
   let buf = nvim_create_buf(v:false, v:true)
@@ -67,10 +73,12 @@ function! s:fzf_open(path) abort
     \ 'style': 'minimal',
     \ }
   let win = nvim_open_win(buf, 1, options)
-  call termopen('fzf --preview "cat {}" --reverse > '.s:tmpfile, { 'on_exit': 's:on_exit' })
+  call termopen('fzf --reverse --preview "'.preview.'" > '.s:tmpfile, { 'on_exit': 's:on_exit' })
   startinsert
 endfunction
 
 command! -nargs=? -complete=file Fzf :call s:fzf_open(<q-args>)
 
 nnoremap <C-p> :Fzf<CR>
+
+" vim: set sw=2 sts=2:
