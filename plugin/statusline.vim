@@ -27,7 +27,7 @@ let g:currentmode = {
 set laststatus=2
 set noshowmode
 set statusline=
-set statusline+=%{toupper(g:currentmode[mode()])}\       " The current mode
+set statusline+=\ %{toupper(g:currentmode[mode()])}\     " The current mode
 set statusline+=%1*\ %<%t%m%r%h%w\                       " Filename, modified, readonly, helpfile, preview
 set statusline+=%3*│                                     " Separator
 set statusline+=%2*\ %Y\                                 " FileType
@@ -36,7 +36,7 @@ set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
 set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
 set statusline+=%=                                       " Right Side
 set statusline+=%3*│                                     " Separator
-set statusline+=%1*\ %l:%v\ (%p%%)                       " Line number / colomn number, percentage of document
+set statusline+=%1*\ %l:%v\ (%p%%)\                      " Line number / colomn number, percentage of document
 
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
