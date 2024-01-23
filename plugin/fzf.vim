@@ -42,6 +42,15 @@ function! s:echoerr(msg) abort
   echohl None
 endfunction
 
+function! s:create_popup(opts) abort
+  let buf = nvim_create_buf(v:false, v:true)
+  let opts = extend({'relative': 'editor', 'style': 'minimal', 'border': 'rounded'}, a:opts)
+  let win = nvim_open_win(buf, v:true, opts)
+  silent! call setwinvar(win, '&winhighlight', 'Pmenu:,Normal:Normal')
+  call setwinvar(win, '&colorcolumn', '')
+  return buf
+endfunction
+
 function! s:fzf_open(path) abort
   if !executable('fzf')
     call s:echoerr("You need to install 'fzf' first")
@@ -59,20 +68,17 @@ function! s:fzf_open(path) abort
     execute 'lcd '.root
   endif
 
-  let buf = nvim_create_buf(v:false, v:true)
   let ui = nvim_list_uis()[0]
 
-  let options = {
-    \ 'relative': 'editor',
-    \ 'width': (ui.width * 3 / 5),
-    \ 'height': (ui.height * 3 / 5),
-    \ 'col': (ui.width / 5),
-    \ 'row': (ui.height / 5),
-    \ 'anchor': 'NW',
-    \ 'border': 'rounded',
-    \ 'style': 'minimal',
-    \ }
-  let win = nvim_open_win(buf, 1, options)
+  let row = ui.height / 5
+  let col = ui.width / 5
+  let width = ui.width * 3 / 5
+  let height = ui.height * 3 / 5
+
+  call s:create_popup({
+    \ 'row': row, 'col': col, 'width': width, 'height': height
+  \ })
+
   call termopen('fzf --reverse --preview "'.preview.'" > '.s:tmpfile, { 'on_exit': 's:on_exit' })
   startinsert
 endfunction
