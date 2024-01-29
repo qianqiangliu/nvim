@@ -5,12 +5,11 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
-set mouse=
 set termguicolors
 set cursorline
 
