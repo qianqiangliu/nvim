@@ -7,15 +7,6 @@ if exists('g:loaded_fzf') || &cp
 endif
 let g:loaded_fzf = 1
 
-function! s:find_root() abort
-  let result = system('git rev-parse --show-toplevel')
-  if v:shell_error == 0
-    return substitute(result, '\n*$', '', 'g')
-  endif
-
-  return "."
-endfunction
-
 function! s:edit(path) abort
   if filereadable(a:path)
     while &buftype != ""
@@ -34,6 +25,8 @@ function! s:on_exit(job, status, event) abort
   let path = get(lines, 0)
   call s:edit(path)
   call delete(s:tmpfile)
+  " go back to the orginal directory
+  execute 'lcd '.s:cwd
 endfunction
 
 function! s:echoerr(msg) abort
@@ -63,10 +56,9 @@ function! s:fzf_open(path) abort
     let preview = 'bat --color=always {}'
   endif
 
-  let root = a:path != '' ? a:path : s:find_root()
-  if root != '.'
-    execute 'lcd '.root
-  endif
+  let s:cwd = getcwd()
+  let root = a:path != '' ? a:path : s:cwd
+  execute 'lcd '.root
 
   let ui = nvim_list_uis()[0]
 
