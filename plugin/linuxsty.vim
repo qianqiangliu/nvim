@@ -65,7 +65,7 @@ function s:LinuxFormatting()
     setlocal tabstop=8
     setlocal shiftwidth=8
     setlocal softtabstop=8
-    setlocal textwidth=80
+    setlocal textwidth=100
     setlocal noexpandtab
 
     setlocal cindent
@@ -74,16 +74,25 @@ endfunction
 
 function s:LinuxKeywords()
     syn keyword cStatement fallthrough
+    syn keyword cStorageClass noinline __always_inline __must_check
+    syn keyword cStorageClass __pure __weak __noclone
+    syn keyword cStorageClass __free __cleanup
+    syn keyword cStorageClass __used __always_unused __maybe_unused
     syn keyword cOperator likely unlikely
     syn keyword cType u8 u16 u32 u64 s8 s16 s32 s64
     syn keyword cType __u8 __u16 __u32 __u64 __s8 __s16 __s32 __s64
+    syn keyword cType __le16 __le32 __le64 __be16 __be32 __be64
 endfunction
 
 function s:LinuxHighlighting()
     highlight default link LinuxError ErrorMsg
 
     syn match LinuxError / \+\ze\t/     " spaces before tab
-    syn match LinuxError /\%>80v[^()\{\}\[\]<>]\+/ " virtual column 81 and more
+    syn match LinuxError /\%>100v[^()\{\}\[\]<>]\+/ " virtual column 101 and more
+
+    " __deprecated should not be used anymore, please see
+    " include/linux/compiler_attributes.h for why.
+    syn match LinuxError /\<__deprecated\>/
 
     " Highlight trailing whitespace, unless we're in insert mode and the
     " cursor's placed right after the whitespace. This prevents us from having
