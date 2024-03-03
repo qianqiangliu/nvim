@@ -27,6 +27,8 @@ command -nargs=+ -complete=file -bar
 
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
+" ctags
+nnoremap <Leader>t :silent !ctags -R -f .tags<CR>
 " expand '%%' to current path
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
