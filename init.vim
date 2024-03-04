@@ -29,6 +29,8 @@ command -nargs=+ -complete=file -bar
 nnoremap <Leader>b :ls<CR>:b<Space>
 " ctags
 nnoremap <Leader>t :silent !ctags -R -f .tags<CR>
+" close quick fix
+nnoremap <Leader>c :cclose<CR>
 " expand '%%' to current path
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
