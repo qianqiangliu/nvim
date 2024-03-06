@@ -27,6 +27,8 @@ command -nargs=+ -complete=file -bar
 
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
+" list tags
+nnoremap <Leader>l :Tlist<CR>
 " ctags
 nnoremap <Leader>t :silent !ctags -R -f .tags<CR>
 " close quick fix
