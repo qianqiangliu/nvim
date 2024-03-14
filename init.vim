@@ -22,6 +22,10 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+" keep netrw out of alternate-file
+autocmd FileType netrw
+  \ setlocal bufhidden=delete
+
 command -nargs=+ -complete=file -bar
   \ Grep silent! grep! <args> | cwindow | redraw!
 
