@@ -13,6 +13,7 @@ set grepprg=rg\ --vimgrep
 set grepformat=%f:%l:%c:%m
 set termguicolors
 set cursorline
+set nohidden
 
 colorscheme gruvbox
 
@@ -21,10 +22,6 @@ autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
   \   exe "normal! g`\"" |
   \ endif
-
-" keep netrw out of alternate-file
-autocmd FileType netrw
-  \ setlocal bufhidden=delete
 
 command -nargs=+ -complete=file -bar
   \ Grep silent! grep! <args> | cwindow | redraw!
