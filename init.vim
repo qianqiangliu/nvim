@@ -26,6 +26,8 @@ autocmd BufReadPost *
 command -nargs=+ -complete=file -bar
   \ Grep silent! grep! <args> | cwindow | redraw!
 
+command! -nargs=+ Git !git <args>
+
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
 " list tags
