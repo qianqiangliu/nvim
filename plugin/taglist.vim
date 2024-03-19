@@ -117,7 +117,7 @@ if !exists('loaded_taglist')
     " When the taglist window is toggle opened, move the cursor to the
     " taglist window
     if !exists('Tlist_GainFocus_On_ToggleOpen')
-        let Tlist_GainFocus_On_ToggleOpen = 0
+        let Tlist_GainFocus_On_ToggleOpen = 1
     endif
 
     " Process files even when the taglist window is not open
@@ -230,7 +230,7 @@ if !exists('loaded_taglist')
 
     " Display the tags for only one file in the taglist window
     if !exists('Tlist_Show_One_File')
-        let Tlist_Show_One_File = 0
+        let Tlist_Show_One_File = 1
     endif
 
     if !exists('Tlist_Max_Submenu_Items')
