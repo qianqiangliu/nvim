@@ -30,10 +30,6 @@ command! -nargs=+ Git !git <args>
 
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
-" list tags
-nnoremap <Leader>l :Tlist<CR>
-" ctags
-nnoremap <Leader>t :silent !ctags -R -f .tags<CR>
 " close quick fix
 nnoremap <Leader>c :cclose<CR>
 " expand '%%' to current path
