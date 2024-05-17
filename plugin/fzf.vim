@@ -1088,6 +1088,7 @@ function! s:cmd(bang, ...) abort
   endif
   let prompt = strwidth(prompt) < &columns - 20 ? prompt : '> '
   call extend(opts.options, ['--prompt', prompt])
+  call extend(opts.options, ['--preview', 'cat {}'])
   call extend(opts.options, args)
   call fzf#run(fzf#wrap('FZF', opts, a:bang))
 endfunction
