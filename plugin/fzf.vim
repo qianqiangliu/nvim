@@ -1094,12 +1094,7 @@ endfunction
 
 command! -nargs=* -complete=dir -bang FZF call s:cmd(<bang>0, <f-args>)
 
-command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--preview', 'cat {}']}, <bang>0)
-
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), {'options': ['--delimiter', ':', '--preview', 'cat {1}']}, <bang>0)
-
-nnoremap <C-p> :Files<CR>
-nnoremap <C-w> :Rg<CR>
+nnoremap <C-p> :FZF<CR>
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
