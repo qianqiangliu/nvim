@@ -456,6 +456,7 @@ function! fzf#vim#files(dir, ...)
 
   let args.options = ['-m', '--prompt', strwidth(dir) < &columns / 2 - 20 ? dir : '> ']
   call s:merge_opts(args, s:conf('files_options', []))
+  echo a:000
   return s:fzf('files', args, a:000)
 endfunction
 
@@ -917,6 +918,7 @@ function! fzf#vim#grep(grep_command, ...)
   try
     let prev_default_command = $FZF_DEFAULT_COMMAND
     let $FZF_DEFAULT_COMMAND = a:grep_command
+    echo args
     return s:fzf(name, opts, args)
   finally
     let $FZF_DEFAULT_COMMAND = prev_default_command
