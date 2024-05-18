@@ -1,3 +1,7 @@
+" Location:     plugin/grep.vim
+" Maintainer:   Qianqiang Liu <qianqiangliu@hotmail.com>
+" Version:      1.0
+
 if exists('g:loaded_grep')
   finish
 endif
