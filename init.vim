@@ -9,8 +9,6 @@ set mouse=
 set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
-set grepprg=rg\ --vimgrep
-set grepformat=%f:%l:%c:%m
 set termguicolors
 set cursorline
 set nohidden
@@ -22,9 +20,6 @@ autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
   \   exe "normal! g`\"" |
   \ endif
-
-command -nargs=+ -complete=file -bar
-  \ Grep silent! grep! <args> | cwindow | redraw!
 
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
