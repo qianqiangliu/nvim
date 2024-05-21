@@ -12,7 +12,7 @@ set cursorline
 set nohidden
 set termguicolors
 
-colorscheme gruvbox
+colorscheme gruvbox8
 
 " jump to last position
 autocmd BufReadPost *
