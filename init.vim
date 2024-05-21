@@ -10,6 +10,7 @@ set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set cursorline
 set nohidden
+set termguicolors
 
 colorscheme gruvbox
 
