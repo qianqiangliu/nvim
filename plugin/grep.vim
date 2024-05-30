@@ -10,8 +10,9 @@ let g:loaded_grep = 1
 set grepprg=rg\ --vimgrep\ --smart-case
 set grepformat=%f:%l:%c:%m
 
-command -nargs=+ -complete=file -bar
-  \ Grep silent! grep! <args> | cwindow | redraw!
+command -nargs=+ -complete=file -bar Grep
+  \ silent! grep! <args> | cwindow |
+  \ if !empty(getqflist()) | exec 'cc 1' | endif | redraw!
 
 nnoremap <Leader>v :call <SID>grep_word_under_cursor()<CR>
 
