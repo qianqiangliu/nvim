@@ -5,10 +5,12 @@ set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set cursorline
-set nohidden
+set winblend=20
 set termguicolors
 
 colorscheme gruvbox8
+
+let g:netrw_banner = 0
 
 " jump to last position
 autocmd BufReadPost *
@@ -20,8 +22,8 @@ autocmd BufReadPost *
 nnoremap <Leader>b :ls<CR>:b<Space>
 " list tags
 nnoremap <Leader>l :Tlist<CR>
-" close quick fix
-nnoremap <Leader>c :cclose<CR>
+" close quickfix
+nnoremap <C-c> :cclose<CR>
 " expand '%%' to current path
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
