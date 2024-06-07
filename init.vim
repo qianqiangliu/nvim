@@ -1,10 +1,6 @@
 set number
 set numberwidth=1
 set relativenumber
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
 set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
