@@ -1,11 +1,10 @@
 set number
-set numberwidth=1
 set relativenumber
+set laststatus=1
 set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
 set cursorline
-set winblend=20
 set termguicolors
 
 colorscheme gruvbox8
@@ -20,8 +19,6 @@ autocmd BufReadPost *
 
 " list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
-" list tags
-nnoremap <Leader>l :Tlist<CR>
 " close quickfix
 nnoremap <C-c> :cclose<CR>
 " expand '%%' to current path
