@@ -1,6 +1,5 @@
 set number
 set relativenumber
-set laststatus=1
 set clipboard+=unnamedplus
 set tags+=./.tags;,.tags
 set matchpairs+=<:>
